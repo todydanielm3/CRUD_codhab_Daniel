@@ -1,6 +1,6 @@
 #---- Aplic for Codhab ------------
 #Camada de Repositoio - Daniel Moraes -
-# Meodos estaicos <><><><><><><><><><><>
+# Modelos estaicos <><><><><><><><><><><>
 #----------------------------------
 
 from sqlalchemy.orm import Session

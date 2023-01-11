@@ -8,8 +8,8 @@ from database import Base
 class Usuario(Base):
     __tablename__ = "usuarios"
     #ID, CPF, NOME, EMAIL e TELEFONE
-    id: int = Column(Integer,primary_key=True,index=True)
-    cpf: int = Column(Integer,nullable=False)
-    nome: str = Column(String(100),nullable=False)
-    email: str = Column(String(100),nullable=False)
-    telefone: int = Column(Integer,nullable=False)
+    id: int = Column(Integer, primary_key=True,index=True)
+    cpf: int = Column(Integer, nullable=False)
+    nome: str = Column(String(100), nullable=False)
+    email: str = Column(String(100), nullable=False)
+    telefone: int = Column(Integer, nullable=False)

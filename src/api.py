@@ -7,12 +7,35 @@ import sqlalchemy
 import sqlalchemy.orm
 from sqlalchemy.orm import Session
 from models import Usuario 
+from repositories import UsuarioRepository
 from database import engine, Base, get_db
 from schemas import UsuarioRequest, UsuarioResponse
+import redis
+import time
+from flask import Flask
+
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+##docker and flask #######################
+#
+#app = Flask(__name__)
+#
+#cache = redis.Redis(host='redis', port=6379)
+#
+#def get_hit_count():
+#    retries = 5
+#    while True:
+#        try:
+#            return cache.incr('hits')
+#        except redis.exceptions.ConnectionError as exc:
+#            if retries == 0:
+#                raise exc
+#            retries -= 1
+#            time.sleep(0.5)
+#######################################
 
 @app.get("/")
 def aplicacao_codhab():

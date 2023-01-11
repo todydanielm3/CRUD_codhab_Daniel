@@ -2,6 +2,9 @@
 # Daniel Moraes ----------#
 # API - CRUD -------------#
 
+from fastapi.responses import PlainTextResponse
+from starlette.exceptions import HTTPException as StarletteHTTPException
+from fastapi.exceptions import RequestValidationError
 from fastapi import FastAPI,Depends, HTTPException, status, Response
 import sqlalchemy
 import sqlalchemy.orm
@@ -42,13 +45,13 @@ def aplicacao_codhab():
     return {"Mensagem":"CRUD Codhab"}
 
 #CADASTRO
-@app.post("/api/usuarios", response_model=UsuarioResponse, status_code=status.HTTP_201_CREATED) #Requisicoes do tipo POST // Rotas de requisicoes //<< Injecao de dependencias >>
+@app.post("/api/usuarios/", response_model=UsuarioResponse, status_code=status.HTTP_201_CREATED) #Requisicoes do tipo POST // Rotas de requisicoes //<< Injecao de dependencias >>
 def create(request: UsuarioRequest, db: Session = Depends(get_db)):
     usuario = UsuarioRepository.save(db, Usuario(**request.dict()))
     return UsuarioResponse.from_orm(usuario)
 
 #LISTAGEM
-@app.get("/api/usuarios",response_model=list[UsuarioResponse]) # E retornado apenas o status code 200 (requisicao processada com sucesso) o que ja eh padrao na rotina.
+@app.get("/api/usuarios/",response_model=list[UsuarioResponse]) # E retornado apenas o status code 200 (requisicao processada com sucesso) o que ja eh padrao na rotina.
 def find_all(db: Session = Depends(get_db)):
     usuarios = UsuarioRepository.find_all(db)
     return [UsuarioResponse.from_orm(usuario)for usuario in usuarios]
@@ -82,4 +85,5 @@ def update(id: int, request: UsuarioRequest,db: Session = Depends(get_db)):
         )
     usuario = UsuarioRepository.save(db, Usuario(id=id, **request.dict()))
     return UsuarioResponse.from_orm(usuario)
+
 
